@@ -4,6 +4,8 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.border.Border;
 
 import com.gangobana.gem.presentationmodel.AbstractSubmitFormPresentationModel;
 import com.gangobana.gem.presentationmodel.SubmitFormPresentationModel;
@@ -40,6 +42,12 @@ public class Main {
 		System.setProperty("apple.laf.useScreenMenuBar", "true");
 		System.setProperty("apple.awt.brushMetalLook", "true");
 		System.setProperty("apple.awt.antialiasing", "on");
+		
+		Border border = UIManager.getBorder("TitledBorder.aquaVariant");
+		
+		if (border != null) {
+			UIManager.put("TitledBorder.border", border);
+		}
 	}
 
 }
