@@ -1,7 +1,5 @@
 package com.gangobana.gem;
 
-import java.awt.Dimension;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
@@ -26,9 +24,8 @@ public class Main {
 		
 		JFrame mainFrame = new JFrame("GEM");
 		mainFrame.add(mainPanel);
-//		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setSize(292, 210);
-		mainFrame.setMinimumSize(new Dimension(292, 210));
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainFrame.setSize(300, 230);
 //		mainFrame.setResizable(false);
 		mainFrame.setVisible(true);
 
