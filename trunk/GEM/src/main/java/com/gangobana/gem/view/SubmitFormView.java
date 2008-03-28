@@ -1,7 +1,11 @@
 package com.gangobana.gem.view;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
@@ -19,12 +23,13 @@ public class SubmitFormView extends AbstractPanel {
 	private AbstractSubmitFormPresentationModel presentationModel;
 	
 	// UI texts
-	private final String EXPENSE;
-	private final String CATEGORY;
-	private final String VALUE;
-	private final String OK;
+	private final String EXPENSE = "Despesa";
+	private final String CATEGORY = "Categoria:";
+	private final String VALUE = "Valor";
+	private final String OK = "Enviar";
 	
 	// UI components
+	private MainToolBar toolBar;
 	private TitledBorder border;
 	private JComboBox categoryComboBox;
 	private JTextField valueTextField;
@@ -34,11 +39,6 @@ public class SubmitFormView extends AbstractPanel {
 	public SubmitFormView(AbstractSubmitFormPresentationModel presentationModel) {
 		
 		this.presentationModel = presentationModel;
-		
-		EXPENSE = "Despesa";
-		CATEGORY = "Categoria:";
-		VALUE = "Valor:";
-		OK = "Ok";
 		
 		createComponents();
 		buildPanel();
@@ -53,7 +53,9 @@ public class SubmitFormView extends AbstractPanel {
 		categoryComboBox = BasicComponentFactory.createComboBox(presentationModel.getExpenseCategorySelectionInList());
 		valueTextField = BasicComponentFactory.createTextField(presentationModel.getExpenseValueValueModel());
 		
-		okButton = new JButton(OK);		
+		okButton = new JButton(OK);
+		
+		toolBar = new MainToolBar();
 	}
 
 	@Override
@@ -73,7 +75,10 @@ public class SubmitFormView extends AbstractPanel {
 		
 		CellConstraints cc = new CellConstraints();
 		
-		FormLayout expenseLayout = new FormLayout("3dlu, pref, 3dlu, pref, 3dlu", "3dlu, pref, 5dlu, pref, 3dlu");
+		FormLayout expenseLayout = new FormLayout(
+			"3dlu, pref, 3dlu, pref, 3dlu", // Columns
+			"3dlu, pref, 5dlu, pref, 3dlu" // Lines
+		);
 		
 		DefaultFormBuilder expensePanelBuilder = new DefaultFormBuilder(expenseLayout);
 		expensePanelBuilder.setBorder(border);
@@ -83,15 +88,16 @@ public class SubmitFormView extends AbstractPanel {
 		expensePanelBuilder.addLabel(VALUE,       cc.xy(2, 4));
 		expensePanelBuilder.add(valueTextField,   cc.xy(4, 4));
 		
+		// Buttons bar
+		JPanel buttonsBar = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		buttonsBar.add(okButton);
 		
 		// Main panel
-		FormLayout mainLayout = new FormLayout("center:pref:grow", "3dlu, fill:pref, 8dlu, bottom:pref:grow");
+		this.setLayout(new BorderLayout(3, 0));
 		
-		DefaultFormBuilder mainBuilder = new DefaultFormBuilder(mainLayout, this);
-		mainBuilder.setDefaultDialogBorder();
-		
-		mainBuilder.add(expensePanelBuilder.getPanel(), cc.xy(1, 2));
-		mainBuilder.add(okButton,                       cc.xy(1, 4));
+		this.add(toolBar, BorderLayout.NORTH);
+		this.add(expensePanelBuilder.getPanel(), BorderLayout.CENTER);
+		this.add(buttonsBar, BorderLayout.SOUTH);
 		
 	}
 

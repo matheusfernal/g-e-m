@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/Users/matheusfernal/Bibliotecas Java/JGoodies/forms-1.1.0/forms-1.1.0.jar"/>
 	<classpathentry kind="lib" path="/Users/matheusfernal/Bibliotecas Java/JGoodies/binding-2.0.1/binding-2.0.1.jar"/>
