@@ -6,5 +6,8 @@ package com.gangobana.gem.action;
  *
  */
 public interface Command {
-
+	boolean setUp();
+	boolean execute();
+	boolean undo();
+	boolean tearDown();
 }

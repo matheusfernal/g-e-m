@@ -3,6 +3,8 @@ package com.gangobana.gem.view;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
+import com.gangobana.gem.action.CommandExecutionListener;
+
 /**
  * Main tool bar of the application
  * @author matheusfernal
@@ -23,6 +25,7 @@ public class MainToolBar extends JToolBar {
 	public MainToolBar() {
 		createComponents();
 		setFloatable(false);
+		associateActions();
 	}
 
 	private void createComponents() {
@@ -33,5 +36,11 @@ public class MainToolBar extends JToolBar {
 		
 		add(loginBtn);
 		add(selectDateBtn);
+	}
+	
+	private void associateActions() {
+//		Command cmd;
+//		selectDateBtn.addActionListener()
+		
 	}
 }
