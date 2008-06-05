@@ -3,7 +3,7 @@ package com.gangobana.gem.view;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
-import com.gangobana.gem.action.CommandExecutionListener;
+import com.gangobana.gem.action.ListenerFactory;
 
 /**
  * Main tool bar of the application
@@ -25,6 +25,7 @@ public class MainToolBar extends JToolBar {
 	public MainToolBar() {
 		createComponents();
 		setFloatable(false);
+		setRollover(true);
 		associateActions();
 	}
 
@@ -39,8 +40,7 @@ public class MainToolBar extends JToolBar {
 	}
 	
 	private void associateActions() {
-//		Command cmd;
-//		selectDateBtn.addActionListener()
+		selectDateBtn.addActionListener(ListenerFactory.getInstance().getShowDateListerner());
 		
 	}
 }
