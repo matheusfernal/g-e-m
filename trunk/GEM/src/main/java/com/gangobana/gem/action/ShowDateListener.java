@@ -10,17 +10,21 @@ import org.jdesktop.swingx.JXMonthView;
 
 public class ShowDateListener implements ActionListener {
 
+	private JPopupMenu popup;
+	private JXMonthView monthView;
+	
+	public ShowDateListener() {
+		this.popup = new JPopupMenu();
+		monthView = new JXMonthView();
+	}
+	
 	public void actionPerformed(ActionEvent e) {
+		popup.add(monthView);
 		
-		JPopupMenu popup = new JPopupMenu();
-		
-		JXMonthView mv = new JXMonthView();
-		
-		popup.add(mv);
-		
-		mv.addActionListener(new DateSelectedListener());
-		
-		popup.show((Component)e.getSource(), 0, 0);
+		monthView.setTraversable(true);
+		monthView.addActionListener(new DateSelectedListener());
+		Component component = (Component)e.getSource();
+		popup.show(component, 0, component.getHeight());
 
 	}
 	
@@ -28,6 +32,9 @@ public class ShowDateListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			popup.setVisible(false);
+//			popup = null;
+			
 			
 		}
 		
