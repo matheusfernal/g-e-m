@@ -26,7 +26,7 @@ public class Main {
 		mainFrame.add(mainPanel);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setSize(300, 230);
-//		mainFrame.setResizable(false);
+		mainFrame.setResizable(false);
 		mainFrame.setVisible(true);
 
 	}
@@ -37,7 +37,7 @@ public class Main {
 	private static void setSystemProperties() {
 
 		System.setProperty("apple.laf.useScreenMenuBar", "true");
-		System.setProperty("apple.awt.brushMetalLook", "true");
+//		System.setProperty("apple.awt.brushMetalLook", "true");
 		System.setProperty("apple.awt.antialiasing", "on");
 		
 		Border border = UIManager.getBorder("TitledBorder.aquaVariant");
