@@ -14,15 +14,16 @@ public class ShowDateListener implements ActionListener {
 	private JXMonthView monthView;
 	
 	public ShowDateListener() {
-		this.popup = new JPopupMenu();
+		popup = new JPopupMenu();
 		monthView = new JXMonthView();
+		
+		popup.add(monthView);
+		monthView.setTraversable(true);
+		monthView.addActionListener(new DateSelectedListener());
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		popup.add(monthView);
 		
-		monthView.setTraversable(true);
-		monthView.addActionListener(new DateSelectedListener());
 		Component component = (Component)e.getSource();
 		popup.show(component, 0, component.getHeight());
 
@@ -33,8 +34,6 @@ public class ShowDateListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			popup.setVisible(false);
-//			popup = null;
-			
 			
 		}
 		

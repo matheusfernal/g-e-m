@@ -25,7 +25,7 @@ public class SubmitFormView extends AbstractPanel {
 	// UI texts
 	private final String EXPENSE = "Despesa";
 	private final String CATEGORY = "Categoria:";
-	private final String VALUE = "Valor";
+	private final String VALUE = "Valor:";
 	private final String OK = "Enviar";
 	
 	// UI components

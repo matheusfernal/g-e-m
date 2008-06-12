@@ -25,7 +25,7 @@ public class Main {
 		JFrame mainFrame = new JFrame("GEM");
 		mainFrame.add(mainPanel);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setSize(300, 230);
+		mainFrame.pack();
 		mainFrame.setResizable(false);
 		mainFrame.setVisible(true);
 
@@ -35,6 +35,14 @@ public class Main {
 	 * define System properties
 	 */
 	private static void setSystemProperties() {
+		
+		// set the Quaqua Look and Feel in the UIManager
+        try { 
+             UIManager.setLookAndFeel("ch.randelshofer.quaqua.QuaquaLookAndFeel");
+        }
+        catch (Exception e) {
+        	e.printStackTrace();
+        }
 
 		System.setProperty("apple.laf.useScreenMenuBar", "true");
 //		System.setProperty("apple.awt.brushMetalLook", "true");
