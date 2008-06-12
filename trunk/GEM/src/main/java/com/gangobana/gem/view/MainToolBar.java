@@ -31,15 +31,18 @@ public class MainToolBar extends JToolBar {
 
 	private void createComponents() {
 		loginBtn = new JButton(GEMIcons.LOGIN);
+		loginBtn.putClientProperty("Quaqua.Button.style", "toolBarTab");
 		loginBtn.setToolTipText(LOGIN);
 		selectDateBtn = new JButton(GEMIcons.CALENDAR);
 		selectDateBtn.setToolTipText(SELECT_DATE);
+		selectDateBtn.putClientProperty("Quaqua.Button.style", "toolBarTab");
 		
 		add(loginBtn);
 		add(selectDateBtn);
 	}
 	
 	private void associateActions() {
+		loginBtn.addActionListener(ListenerFactory.getInstance().getShowLoginPanelListener());
 		selectDateBtn.addActionListener(ListenerFactory.getInstance().getShowDateListerner());
 		
 	}

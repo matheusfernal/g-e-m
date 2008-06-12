@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="lib/looks-2.1.4.jar"/>
 	<classpathentry kind="lib" path="lib/binding-2.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/swingx-0.9.2.jar"/>
+	<classpathentry kind="lib" path="lib/quaqua.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
