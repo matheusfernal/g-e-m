@@ -8,6 +8,7 @@ public final class ListenerFactory {
 	
 	private ShowDateListener showDateListerner;
 	private ShowLoginPanelListener showLoginPanelListener;
+	private SendBtnPressedListener sendBtnPressedListener;
 	
 	public static ListenerFactory getInstance() {	
 		return instance;
@@ -16,6 +17,7 @@ public final class ListenerFactory {
 	private ListenerFactory() {
 		this.showDateListerner = new ShowDateListener();
 		this.showLoginPanelListener = new ShowLoginPanelListener();
+		this.sendBtnPressedListener = new SendBtnPressedListener();
 	}
 	
 	
@@ -27,6 +29,10 @@ public final class ListenerFactory {
 	
 	public ShowDateListener getShowDateListerner() {
 		return showDateListerner;
+	}
+	
+	public SendBtnPressedListener getSendBtnPressedListener() {
+		return sendBtnPressedListener;
 	}
 	
 }

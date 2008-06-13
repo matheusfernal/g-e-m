@@ -8,6 +8,8 @@ import javax.swing.JPopupMenu;
 
 import org.jdesktop.swingx.JXMonthView;
 
+import com.gangobana.gem.domain.Expense;
+
 public class ShowDateListener implements ActionListener {
 
 	private JPopupMenu popup;
@@ -32,7 +34,7 @@ public class ShowDateListener implements ActionListener {
 	private class DateSelectedListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			Expense.getInstance().setExpenseDate(monthView.getCalendar());
 			popup.setVisible(false);
 			
 		}

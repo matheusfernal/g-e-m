@@ -37,16 +37,16 @@ public class SubmitFormView extends AbstractPanel {
 	
 	
 	public SubmitFormView(AbstractSubmitFormPresentationModel presentationModel) {
-		
 		this.presentationModel = presentationModel;
 		
 		createComponents();
+		associateCommands();
+		defineEventsHandling();
 		buildPanel();
 	}
 	
 	@Override
 	protected void createComponents() {
-		
 		border = new TitledBorder(EXPENSE);
 		border.setTitleJustification(TitledBorder.CENTER);
 		
@@ -60,8 +60,7 @@ public class SubmitFormView extends AbstractPanel {
 
 	@Override
 	protected void associateCommands() {
-		// TODO Auto-generated method stub
-
+		okButton.addActionListener(presentationModel.getSendCommand());
 	}
 	
 	@Override

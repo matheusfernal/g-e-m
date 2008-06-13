@@ -11,6 +11,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 
+import com.gangobana.gem.domain.Expense;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -83,7 +84,9 @@ public class ShowLoginPanelListener implements ActionListener {
 	private class LoginBtnPressedActionListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			Expense.getInstance().setUserlogin(loginTF.getText());
+			Expense.getInstance().setUserPassword(passwordPF.getPassword());
+			
 			popup.setVisible(false);
 			loginTF.setText("");
 			passwordPF.setText("");

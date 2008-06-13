@@ -1,6 +1,11 @@
 package com.gangobana.gem.presentationmodel;
 
-import com.gangobana.gem.action.Command;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import com.gangobana.gem.action.ListenerFactory;
+import com.gangobana.gem.domain.Expense;
 import com.gangobana.gem.domain.ExpenseCategory;
 import com.jgoodies.binding.beans.Model;
 import com.jgoodies.binding.list.SelectionInList;
@@ -19,13 +24,34 @@ public class SubmitFormPresentationModel extends AbstractSubmitFormPresentationM
 		
 		expenseCategory = new SelectionInList<ExpenseCategory>(ExpenseCategory.values());
 		expenseValue = new ValueHolder("R$ ");
+		
+		defineEventHandling();
 	}
 
-	@Override
-	public Command getCancelCommand() {
-		// TODO Auto-generated method stub
-		return null;
+
+	private void defineEventHandling() {
+		expenseCategory.addValueChangeListener(
+			new PropertyChangeListener() {
+
+				public void propertyChange(PropertyChangeEvent evt) {
+					Expense.getInstance().setExpenseCategory(getExpenseCategorySelectionInList().getValue());
+				}
+
+			}
+		);
+		
+		expenseValue.addValueChangeListener(
+			new PropertyChangeListener() {
+
+				public void propertyChange(PropertyChangeEvent evt) {
+					Expense.getInstance().setEspenseValue((String) getExpenseValueValueModel().getValue());
+				}
+
+			}
+			);
+
 	}
+
 
 	@Override
 	public SelectionInList<ExpenseCategory> getExpenseCategorySelectionInList() {
@@ -38,9 +64,8 @@ public class SubmitFormPresentationModel extends AbstractSubmitFormPresentationM
 	}
 
 	@Override
-	public Command getSendCommand() {
-		// TODO Auto-generated method stub
-		return null;
+	public ActionListener getSendCommand() {
+		return ListenerFactory.getInstance().getSendBtnPressedListener();
 	}
 
 }

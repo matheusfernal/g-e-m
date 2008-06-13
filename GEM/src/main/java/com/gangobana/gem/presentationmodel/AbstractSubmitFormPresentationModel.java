@@ -1,6 +1,7 @@
 package com.gangobana.gem.presentationmodel;
 
-import com.gangobana.gem.action.Command;
+import java.awt.event.ActionListener;
+
 import com.gangobana.gem.domain.ExpenseCategory;
 import com.jgoodies.binding.PresentationModel;
 import com.jgoodies.binding.beans.Model;
@@ -30,8 +31,6 @@ public abstract class AbstractSubmitFormPresentationModel extends PresentationMo
 	 */
 	public abstract SelectionInList<ExpenseCategory> getExpenseCategorySelectionInList();
 	
-	public abstract Command getSendCommand();
-	
-	public abstract Command getCancelCommand(); 
+	public abstract ActionListener getSendCommand();
 
 }
