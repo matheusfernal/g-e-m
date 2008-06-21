@@ -2,6 +2,7 @@ package com.gangobana.gem.view;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.math.BigDecimal;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -9,18 +10,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import com.gangobana.gem.presentationmodel.AbstractSubmitFormPresentationModel;
-import com.jgoodies.binding.adapter.BasicComponentFactory;
+import com.gangobana.gem.action.ListenerFactory;
+import com.gangobana.gem.domain.ExpenseCategory;
+import com.gangobana.gem.domain.IExpenseGateway;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
-public class SubmitFormView extends AbstractPanel {
+public class SubmitFormView extends AbstractPanel implements IExpenseGateway {
 	
 	private static final long serialVersionUID = -2299213928828913647L;
-
-	// Presentation Model
-	private AbstractSubmitFormPresentationModel presentationModel;
 	
 	// UI texts
 	private final String EXPENSE = "Despesa";
@@ -36,8 +35,7 @@ public class SubmitFormView extends AbstractPanel {
 	private JButton okButton;
 	
 	
-	public SubmitFormView(AbstractSubmitFormPresentationModel presentationModel) {
-		this.presentationModel = presentationModel;
+	public SubmitFormView() {
 		
 		createComponents();
 		associateCommands();
@@ -50,8 +48,8 @@ public class SubmitFormView extends AbstractPanel {
 		border = new TitledBorder(EXPENSE);
 		border.setTitleJustification(TitledBorder.CENTER);
 		
-		categoryComboBox = BasicComponentFactory.createComboBox(presentationModel.getExpenseCategorySelectionInList());
-		valueTextField = BasicComponentFactory.createTextField(presentationModel.getExpenseValueValueModel());
+		categoryComboBox = new JComboBox(ExpenseCategory.values());
+		valueTextField = new JTextField("R$ ");
 		
 		okButton = new JButton(OK);
 		
@@ -60,7 +58,7 @@ public class SubmitFormView extends AbstractPanel {
 
 	@Override
 	protected void associateCommands() {
-		okButton.addActionListener(presentationModel.getSendCommand());
+		okButton.addActionListener(ListenerFactory.getInstance().getSendBtnPressedListener(this));
 	}
 	
 	@Override
@@ -98,6 +96,15 @@ public class SubmitFormView extends AbstractPanel {
 		this.add(expensePanelBuilder.getPanel(), BorderLayout.CENTER);
 		this.add(buttonsBar, BorderLayout.SOUTH);
 		
+	}
+
+	public ExpenseCategory getExpenseCategory() {
+		return (ExpenseCategory) categoryComboBox.getSelectedItem();
+	}
+
+	public BigDecimal getExpenseValue() {
+		String value = valueTextField.getText().substring(3, valueTextField.getText().length());
+		return new BigDecimal(value);
 	}
 
 }

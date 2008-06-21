@@ -5,8 +5,6 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 
-import com.gangobana.gem.presentationmodel.AbstractSubmitFormPresentationModel;
-import com.gangobana.gem.presentationmodel.SubmitFormPresentationModel;
 import com.gangobana.gem.view.SubmitFormView;
 
 public class Main {
@@ -17,10 +15,8 @@ public class Main {
 	public static void main(String[] args) {
 		
 		setSystemProperties();
-		
-		AbstractSubmitFormPresentationModel pm = new SubmitFormPresentationModel(null);
 
-		JPanel mainPanel = new SubmitFormView(pm);
+		JPanel mainPanel = new SubmitFormView();
 		
 		JFrame mainFrame = new JFrame("GEM");
 		mainFrame.add(mainPanel);
