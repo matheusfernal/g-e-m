@@ -2,6 +2,8 @@ package com.gangobana.gem.action;
 
 import java.awt.event.ActionListener;
 
+import com.gangobana.gem.domain.IExpenseGateway;
+
 public final class ListenerFactory {
 	
 	private static ListenerFactory instance = new ListenerFactory();
@@ -31,7 +33,8 @@ public final class ListenerFactory {
 		return showDateListerner;
 	}
 	
-	public SendBtnPressedListener getSendBtnPressedListener() {
+	public SendBtnPressedListener getSendBtnPressedListener(IExpenseGateway expenseGateway) {
+		sendBtnPressedListener.setExpense(expenseGateway);
 		return sendBtnPressedListener;
 	}
 	
