@@ -26,7 +26,7 @@ public class ShowLoginPanelListener implements ActionListener {
 	
 	// View texts
 	private final String LOGIN = "Login";
-	private final String PASSWORD = "Password";
+	private final String PASSWORD = "Senha";
 	private final String LOG = "Logar";
 	
 
@@ -47,12 +47,15 @@ public class ShowLoginPanelListener implements ActionListener {
 	}
 
 	private void associateActions() {
-		loginBtn.addActionListener(new LoginBtnPressedActionListener());
+		LoginBtnPressedActionListener listener = new LoginBtnPressedActionListener();
+		loginBtn.addActionListener(listener);
+		loginTF.addActionListener(listener);
+		passwordPF.addActionListener(listener);
 	}
 
 	private void buildPanel() {
 		FormLayout loginPanelLayout = new FormLayout(
-			"pref", // cols
+			"5dlu, pref, 5dlu", // cols
 			"pref, 1dlu, pref, 3dlu, pref, 1dlu, pref, 1dlu, pref" // rows	
 		);
 		
@@ -67,11 +70,11 @@ public class ShowLoginPanelListener implements ActionListener {
 		
 		CellConstraints cc = new CellConstraints();
 		
-		loginPanelBuilder.addLabel(LOGIN,    cc.xy(1, 1));
-		loginPanelBuilder.add(loginTF,       cc.xy(1, 3));
-		loginPanelBuilder.addLabel(PASSWORD, cc.xy(1, 5));
-		loginPanelBuilder.add(passwordPF,    cc.xy(1, 7));
-		loginPanelBuilder.add(buttonsBar,      cc.xy(1, 9));
+		loginPanelBuilder.addLabel(LOGIN,      cc.xy(2, 1));
+		loginPanelBuilder.add(loginTF,         cc.xy(2, 3));
+		loginPanelBuilder.addLabel(PASSWORD,   cc.xy(2, 5));
+		loginPanelBuilder.add(passwordPF,      cc.xy(2, 7));
+		loginPanelBuilder.add(buttonsBar,      cc.xy(2, 9));
 		
 	}
 
