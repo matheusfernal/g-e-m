@@ -8,5 +8,14 @@
 	<classpathentry kind="lib" path="lib/binding-2.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/swingx-0.9.2.jar"/>
 	<classpathentry kind="lib" path="lib/quaqua.jar"/>
+	<classpathentry kind="lib" path="lib/gdata-client-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/gdata-spreadsheet-1.0.jar" sourcepath="/Users/matheusfernal/Downloads/gdata/java/src/com/google/gdata/client/spreadsheet/SpreadsheetService.java"/>
+	<classpathentry kind="lib" path="lib/gdata-client-meta-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/activation.jar"/>
+	<classpathentry kind="lib" path="lib/gdata-core-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/gdata-media-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/gdata-spreadsheet-meta-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/mail.jar"/>
+	<classpathentry kind="lib" path="lib/servlet-api.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

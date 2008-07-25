@@ -10,6 +10,11 @@ import javax.swing.JPanel;
 public abstract class AbstractPanel extends JPanel {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4052648501313056268L;
+
+	/**
 	 * Instantiates the components of the panel
 	 */
 	abstract protected void createComponents();

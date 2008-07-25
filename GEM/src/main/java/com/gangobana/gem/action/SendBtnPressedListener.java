@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
 
+import com.gangobana.gem.action.gdata.GoogleSpreadsheetManager;
 import com.gangobana.gem.domain.Expense;
 import com.gangobana.gem.domain.IExpenseGateway;
 
@@ -16,8 +17,6 @@ public class SendBtnPressedListener implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
 		// If the user didn't set the date, the date is today
 		if (Expense.getInstance().getExpenseDate() == null) {
 			Expense.getInstance().setExpenseDate(new GregorianCalendar());
@@ -26,6 +25,10 @@ public class SendBtnPressedListener implements ActionListener {
 		// Sets the value and the category of the expense
 		Expense.getInstance().setEspenseValue(expense.getExpenseValue());
 		Expense.getInstance().setExpenseCategory(expense.getExpenseCategory());
+		
+		// Calls the method that interacts with Google Spreadsheets
+		GoogleSpreadsheetManager spreadsheetManager = new GoogleSpreadsheetManager(Expense.getInstance());
+		spreadsheetManager.doSpreadsheetWork();
 	}
 
 }
