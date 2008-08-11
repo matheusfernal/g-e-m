@@ -11,7 +11,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 
+import com.gangobana.gem.action.gdata.GoogleSpreadsheetManager;
 import com.gangobana.gem.domain.Expense;
+import com.google.gdata.client.spreadsheet.SpreadsheetService;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -47,7 +49,7 @@ public class ShowLoginPanelListener implements ActionListener {
 	}
 
 	private void associateActions() {
-		LoginBtnPressedActionListener listener = new LoginBtnPressedActionListener();
+		final LoginBtnPressedActionListener listener = new LoginBtnPressedActionListener();
 		loginBtn.addActionListener(listener);
 		loginTF.addActionListener(listener);
 		passwordPF.addActionListener(listener);
@@ -89,6 +91,9 @@ public class ShowLoginPanelListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			Expense.getInstance().setUserlogin(loginTF.getText());
 			Expense.getInstance().setUserPassword(passwordPF.getPassword());
+			
+			// Authenticates the SpreadSheetService
+			GoogleSpreadsheetManager.getInstance().authenticateService();
 			
 			popup.setVisible(false);
 			loginTF.setText("");

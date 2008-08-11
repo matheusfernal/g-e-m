@@ -11,8 +11,11 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import com.gangobana.gem.action.ListenerFactory;
+import com.gangobana.gem.action.SendBtnPressedListener;
+import com.gangobana.gem.action.gdata.GoogleSpreadsheetManager;
 import com.gangobana.gem.domain.ExpenseCategory;
 import com.gangobana.gem.domain.IExpenseGateway;
+import com.jgoodies.binding.beans.PropertyConnector;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -54,11 +57,16 @@ public class SubmitFormView extends AbstractPanel implements IExpenseGateway {
 		okButton = new JButton(OK);
 		
 		toolBar = new MainToolBar();
+		
+		PropertyConnector p = PropertyConnector.connect(GoogleSpreadsheetManager.getInstance().getIsAuthenticated(), "value", okButton, "enabled");
+		p.updateProperty2();
 	}
 
 	@Override
 	protected void associateCommands() {
-		okButton.addActionListener(ListenerFactory.getInstance().getSendBtnPressedListener(this));
+		final SendBtnPressedListener listener = ListenerFactory.getInstance().getSendBtnPressedListener(this);
+		okButton.addActionListener(listener);
+		valueTextField.addActionListener(listener);
 	}
 	
 	@Override
