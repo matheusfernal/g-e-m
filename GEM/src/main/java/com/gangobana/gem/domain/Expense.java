@@ -6,7 +6,7 @@ import java.util.Calendar;
 
 public class Expense {
 	
-	private static Expense instance = new Expense();
+	private final static Expense instance = new Expense();
 	
 	
 	private Calendar expenseDate;

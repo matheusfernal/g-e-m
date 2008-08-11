@@ -27,8 +27,7 @@ public class SendBtnPressedListener implements ActionListener {
 		Expense.getInstance().setExpenseCategory(expense.getExpenseCategory());
 		
 		// Calls the method that interacts with Google Spreadsheets
-		GoogleSpreadsheetManager spreadsheetManager = new GoogleSpreadsheetManager(Expense.getInstance());
-		spreadsheetManager.doSpreadsheetWork();
+		GoogleSpreadsheetManager.getInstance().doSpreadsheetWork();
 	}
 
 }
