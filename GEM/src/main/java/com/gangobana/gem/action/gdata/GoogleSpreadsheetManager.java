@@ -1,6 +1,7 @@
 package com.gangobana.gem.action.gdata;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
@@ -12,8 +13,11 @@ import sun.security.jca.GetInstance.Instance;
 
 import com.gangobana.gem.domain.Expense;
 import com.google.gdata.client.Query;
+import com.google.gdata.client.spreadsheet.CellQuery;
 import com.google.gdata.client.spreadsheet.ListQuery;
 import com.google.gdata.client.spreadsheet.SpreadsheetService;
+import com.google.gdata.data.spreadsheet.CellEntry;
+import com.google.gdata.data.spreadsheet.CellFeed;
 import com.google.gdata.data.spreadsheet.ListEntry;
 import com.google.gdata.data.spreadsheet.ListFeed;
 import com.google.gdata.data.spreadsheet.SpreadsheetEntry;
@@ -24,7 +28,8 @@ import com.google.gdata.util.ServiceException;
 import com.jgoodies.binding.value.ValueHolder;
 import com.jgoodies.binding.value.ValueModel;
 
-public class GoogleSpreadsheetManager {
+public class GoogleSpreadsheetManager
+{
 	
 	private final static GoogleSpreadsheetManager instance = new GoogleSpreadsheetManager();
 	private final Expense expense;
@@ -33,7 +38,8 @@ public class GoogleSpreadsheetManager {
 	private static final Map<Integer, String> months;
 	private ValueModel isAuthenticated;
 	
-	static {
+	static 
+	{
 		months = new HashMap<Integer, String>(12);
 		months.put(0, "Janeiro");
 		months.put(1, "Fevereiro");
@@ -49,14 +55,17 @@ public class GoogleSpreadsheetManager {
 		months.put(11, "Dezembro");
 	}
 	
-	private GoogleSpreadsheetManager() {
+	private GoogleSpreadsheetManager() 
+	{
 		this.expense = Expense.getInstance();
 		service = new SpreadsheetService("com.gangobana.GEM");
 		isAuthenticated = new ValueHolder(false);
 	}
 	
-	public void doSpreadsheetWork() {
-		try {
+	public void doSpreadsheetWork() 
+	{
+		try 
+		{
 			
 			URL metafeedUrl = new URL("http://spreadsheets.google.com/feeds/spreadsheets/private/full");
 			SpreadsheetFeed feed = service.getFeed(metafeedUrl, SpreadsheetFeed.class);
@@ -65,8 +74,10 @@ public class GoogleSpreadsheetManager {
 			List<SpreadsheetEntry> spreadsheets = feed.getEntries();
 			SpreadsheetEntry expenseSpreadsheet = null;
 			
-			for (SpreadsheetEntry entry : spreadsheets) {
-				if (entry.getTitle().getPlainText().equals(EXPENSE_SPREADSHEET_NAME)) {
+			for (SpreadsheetEntry entry : spreadsheets) 
+			{
+				if (entry.getTitle().getPlainText().equals(EXPENSE_SPREADSHEET_NAME)) 
+				{
 					expenseSpreadsheet = entry;
 					break;
 				}
@@ -77,21 +88,53 @@ public class GoogleSpreadsheetManager {
 			List<WorksheetEntry> worksheets = expenseSpreadsheet.getWorksheets();
 			WorksheetEntry currentWorksheet = null;
 			
-			for (WorksheetEntry entry : worksheets) {
-				if (entry.getTitle().getPlainText().contains(expenseMonth)) {
+			for (WorksheetEntry entry : worksheets) 
+			{
+				if (entry.getTitle().getPlainText().contains(expenseMonth)) 
+				{
 					currentWorksheet = entry;
 					break;
 				}
 			}
 			
-			// Obtains the line corresponding to the selected day
-			URL listFeedUrl = currentWorksheet.getListFeedUrl();
-			ListQuery query = new ListQuery(listFeedUrl);
-			String stringQuery = "Despesa > == 1"/* + expense.getExpenseDate().get(Calendar.DAY_OF_MONTH)*/;
-			query.setSpreadsheetQuery(stringQuery);
-			ListFeed rowFeed = service.query(query, ListFeed.class);
+			// Obtaining the cell
+			int dayRow = expense.getExpenseDate().get(Calendar.DAY_OF_MONTH) + 2;
+			int categoryCol = expense.getExpenseCategory().getColumn();
+			URL cellFeedUrl = currentWorksheet.getCellFeedUrl();
+			CellQuery query = new CellQuery(cellFeedUrl);
+			query.setMinimumRow(dayRow);
+			query.setMaximumRow(dayRow);
+			query.setMinimumCol(categoryCol);
+			query.setMaximumCol(categoryCol);
+			CellFeed cellFeed = service.query(query, CellFeed.class);
+			CellEntry cell = cellFeed.getEntries().get(0); 
+
+			// The cell is empty
+			if (cell.getCell().getValue().equals("")) 
+			{
+				cell.changeInputValueLocal(expense.getEspenseValue().toString());
+			}
+			// There's already a value
+			else 
+			{
+				BigDecimal oldValue = new BigDecimal(cell.getCell().getValue().substring(3));
+				BigDecimal newValue = oldValue.add(expense.getEspenseValue());
+				cell.changeInputValueLocal(newValue.toString());
+			}
+
+			// Updates the cel value
+			cell.update();
+
 			
-			ListEntry entry = rowFeed.getEntries().get(0);
+			
+			// Obtains the line corresponding to the selected day
+//			URL listFeedUrl = currentWorksheet.getListFeedUrl();
+//			ListQuery query = new ListQuery(listFeedUrl);
+//			String stringQuery = "Aluguel == daj"/* + expense.getExpenseDate().get(Calendar.DAY_OF_MONTH)*/;
+//			query.setSpreadsheetQuery(stringQuery);
+//			ListFeed rowFeed = service.query(query, ListFeed.class);
+//			
+//			ListEntry entry = rowFeed.getEntries().get(0);
 			
 			
 //			// Update the worksheet metadata
@@ -105,39 +148,50 @@ public class GoogleSpreadsheetManager {
 //				}
 //			}
 			
-		} catch (MalformedURLException e) {
+		}
+		catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ServiceException e) {
+		}
+		catch (ServiceException e) {
 			// TODO Auto-generated catch block
 			// It wasn't possible to authenticate
 			e.printStackTrace();
 		}
-		finally {
+		finally
+		{
 			// Logs out of the service
 		}
 		
 	}
 	
-	public static GoogleSpreadsheetManager getInstance() {
+	public static GoogleSpreadsheetManager getInstance()
+	{
 		return instance; 
 	}
 	
-	public void authenticateService() {
-		try {
+	public void authenticateService()
+	{
+		try 
+		{
 			service.setUserCredentials(expense.getUserlogin(), new String(expense.getUserPassword()));
 			isAuthenticated.setValue(true);
-		} catch (AuthenticationException e) {
+		} 
+		catch (AuthenticationException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public ValueModel getIsAuthenticated() {
+	public ValueModel getIsAuthenticated()
+	{
 		return isAuthenticated;
 	}
 
 }
+
