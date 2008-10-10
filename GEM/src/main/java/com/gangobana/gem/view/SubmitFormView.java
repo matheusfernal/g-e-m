@@ -3,12 +3,14 @@ package com.gangobana.gem.view;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.math.BigDecimal;
+import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.MaskFormatter;
 
 import com.gangobana.gem.action.ListenerFactory;
 import com.gangobana.gem.action.SendBtnPressedListener;
@@ -34,7 +36,7 @@ public class SubmitFormView extends AbstractPanel implements IExpenseGateway {
 	private MainToolBar toolBar;
 	private TitledBorder border;
 	private JComboBox categoryComboBox;
-	private JTextField valueTextField;
+	private JFormattedTextField valueTextField;
 	private JButton okButton;
 	
 	
@@ -52,7 +54,7 @@ public class SubmitFormView extends AbstractPanel implements IExpenseGateway {
 		border.setTitleJustification(TitledBorder.CENTER);
 		
 		categoryComboBox = new JComboBox(ExpenseCategory.values());
-		valueTextField = new JTextField("R$ ");
+		valueTextField = new JFormattedTextField(giveMask("R$ ***.**"));
 		
 		okButton = new JButton(OK);
 		
@@ -114,5 +116,17 @@ public class SubmitFormView extends AbstractPanel implements IExpenseGateway {
 		String value = valueTextField.getText().substring(3, valueTextField.getText().length());
 		return new BigDecimal(value);
 	}
-
+	
+	private MaskFormatter giveMask(String mask) {
+		MaskFormatter maskFormatter = null;
+		try {
+			maskFormatter = new MaskFormatter(mask);
+		}
+		catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		return maskFormatter;
+	}
+		
 }
