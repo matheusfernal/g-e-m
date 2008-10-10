@@ -13,7 +13,6 @@ import javax.swing.JTextField;
 
 import com.gangobana.gem.action.gdata.GoogleSpreadsheetManager;
 import com.gangobana.gem.domain.Expense;
-import com.google.gdata.client.spreadsheet.SpreadsheetService;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
