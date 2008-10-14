@@ -4,6 +4,14 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.cert.CertificateException;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -90,6 +98,17 @@ public class ShowLoginPanelListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			Expense.getInstance().setUserlogin(loginTF.getText());
 			Expense.getInstance().setUserPassword(passwordPF.getPassword());
+			
+			KeyStore keyChain = null;
+			try {
+				keyChain = KeyStore.getInstance("KeychainStore", "Apple");
+			}
+			catch (KeyStoreException e1) {
+				e1.printStackTrace();
+			}
+			catch (NoSuchProviderException e1) {
+				e1.printStackTrace();
+			}
 			
 			// Authenticates the SpreadSheetService
 			GoogleSpreadsheetManager.getInstance().authenticateService();

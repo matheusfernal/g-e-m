@@ -54,7 +54,7 @@ public class SubmitFormView extends AbstractPanel implements IExpenseGateway {
 		border.setTitleJustification(TitledBorder.CENTER);
 		
 		categoryComboBox = new JComboBox(ExpenseCategory.values());
-		valueTextField = new JFormattedTextField(giveMask("R$ ***.**"));
+		valueTextField = new JFormattedTextField(giveMask("R$ ###.##"));
 		
 		okButton = new JButton(OK);
 		
