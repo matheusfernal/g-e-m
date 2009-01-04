@@ -34,7 +34,8 @@ public class GoogleSpreadsheetManager
 	private final static GoogleSpreadsheetManager instance = new GoogleSpreadsheetManager();
 	private final Expense expense;
 	private final SpreadsheetService service;
-	private static final String EXPENSE_SPREADSHEET_NAME = "Controle de gastos";
+//	private static final String EXPENSE_SPREADSHEET_NAME = "Controle de gastos";
+	private static final String EXPENSE_SPREADSHEET_NAME = "Teste gdata";
 	private static final Map<Integer, String> months;
 	private ValueModel isAuthenticated;
 	
@@ -83,6 +84,9 @@ public class GoogleSpreadsheetManager
 				}
 			}
 			
+			//
+			expenseSpreadsheet.getTitle().getPlainText();
+			
 			// Obtains the correct worksheet
 			String expenseMonth = months.get(expense.getExpenseDate().get(Calendar.MONTH));	
 			List<WorksheetEntry> worksheets = expenseSpreadsheet.getWorksheets();
@@ -97,6 +101,9 @@ public class GoogleSpreadsheetManager
 				}
 			}
 			
+			//
+			currentWorksheet.getTitle().getPlainText();
+			
 			// Obtaining the cell
 			int dayRow = expense.getExpenseDate().get(Calendar.DAY_OF_MONTH) + 2;
 			int categoryCol = expense.getExpenseCategory().getColumn();
@@ -106,8 +113,11 @@ public class GoogleSpreadsheetManager
 			query.setMaximumRow(dayRow);
 			query.setMinimumCol(categoryCol);
 			query.setMaximumCol(categoryCol);
-			CellFeed cellFeed = service.query(query, CellFeed.class);
+//			CellFeed cellFeed = service.query(query, CellFeed.class);
+			CellFeed cellFeed = service.getFeed(cellFeedUrl, CellFeed.class);
 			CellEntry cell = cellFeed.getEntries().get(0); 
+			
+			
 
 			// The cell is empty
 			if (cell.getCell().getValue().equals("")) 
