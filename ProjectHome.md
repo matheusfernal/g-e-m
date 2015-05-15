@@ -1,0 +1,1 @@
+Personal expense manager integrated with Google Spreadsheets.
